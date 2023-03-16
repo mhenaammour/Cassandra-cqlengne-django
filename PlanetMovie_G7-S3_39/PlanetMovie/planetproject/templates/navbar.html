@@ -1,0 +1,63 @@
+<!--
+          - navbar navigation
+        -->
+
+        <nav class="">
+            <ul class="navbar-nav">
+  
+              <li> <a href="/" class="navbar-link">Home</a> </li>
+              <li> <a href="{%url 'blog'%}" class="navbar-link">Blog</a> </li>
+              {%if request.session.username%}
+              
+                <li> <a href="{%url 'signout'%}" class="navbar-link">signout</a> </li>
+                {%if err%}
+              
+                <li> <a href="{%url 'admin'%}" class="navbar-link">admin</a> </li>
+                {%endif%}
+                <li> <a href="{%url 'favorite_films'%}" class="navbar-link">Mes favories </a> </li>
+
+              {%else%}
+                <li> <a href="{%url 'signin'%}" class="navbar-link">signin</a> </li>
+                <li> <a href="{%url 'signup'%}" class="navbar-link">signup</a> </li>
+
+              {% endif %}
+ 
+  
+            </ul>
+          </nav>
+  
+          <!--
+            - search and sign-in
+          -->
+  
+          <div class="navbar-actions">
+  
+            <form action="{% url 'search' %}" class="navbar-form">
+              <input type="search" name="q" placeholder="Search" class="navbar-form-search">
+  
+              <button class="navbar-form-btn">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+  
+              <button class="navbar-form-close">
+                <ion-icon name="close-circle-outline"></ion-icon>
+              </button>
+            </form>
+  
+  
+            <!--
+              - search button for small screen
+            -->
+  
+            <button class="navbar-search-btn">
+              <ion-icon name="search-outline"></ion-icon>
+            </button>
+  
+           
+  
+          </div>
+  
+        </div>
+      </header>
+  
+  

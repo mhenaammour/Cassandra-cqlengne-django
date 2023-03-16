@@ -1,0 +1,33 @@
+<div class="filter-bar">
+  <div class="filter-dropdowns" method="POST">
+    <select name="genre" class="genre" onchange="la(this.value)">
+      <option value="#">Type</option>
+      <option value="/">All genres</option>
+      <option value="cat3">Action</option>
+      <option value="cat7">Adventure</option>
+      <option value="cat5">Animal</option>
+      <option value="cat4">Animation</option>
+      <option value="cat6">Biography</option>
+      <option value="cat2">Drama</option>
+      <option value="cat1">Comedy</option>
+    </select>
+    <script>
+      function la(src) {
+        window.location = src;
+      }
+    </script>
+
+    <select name="year" class="year" onchange="la(this.value)">
+      <option value="/">All the years</option>
+      <option value="newest">Newest of the year</option>
+      <option value="mostwatched">Most Watched</option>
+      <option value="toprated">Top Rated</option>
+
+      <option value="year_2022">2022</option>
+      <option value="year_2020_2021">2020-2021</option>
+      <option value="year_2010_2019">2010-2019</option>
+      <option value="year_2000_2009">2000-2009</option>
+      <option value="year_1980_1999">1980-1999</option>
+    </select>
+  </div>
+</div>

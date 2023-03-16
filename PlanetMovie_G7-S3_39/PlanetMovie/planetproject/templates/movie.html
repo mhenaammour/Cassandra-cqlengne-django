@@ -1,0 +1,416 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{%static 'images/icon.png'%}" type="image/png">
+  <title>CineFlix</title>
+
+  <!--
+    - custom css 
+  -->
+  <link rel="stylesheet" href="{%static 'css/main.css'%}">
+  <link rel="stylesheet" href="{%static 'css/media_query.css'%}">
+
+  <!--
+    - google font 
+  -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
+</head>
+
+<body>
+
+
+
+
+  <!--
+    - main container
+  -->
+  <div class="container">
+
+    <!--
+      - #HEADER SECTION
+    -->
+
+    <header class="">
+      <div class="navbar">
+
+        <!--
+          - menu button for small screen
+        -->
+        <button class="navbar-menu-btn">
+          <span class="one"></span>
+          <span class="two"></span>
+          <span class="three"></span>
+        </button>
+
+        <a href="/" class="navbar-brand">
+          <div class="slay" style="font-size: x-large;"><h3 style="color: var(--light-azure);">PlanetMovie</h3></div>
+        </a>
+
+        <!--
+          - navbar navigation
+        -->
+
+        {%include "navbar.html"%}
+
+
+
+    <!--
+      - MAIN SECTION
+    -->
+    <main>
+       <!--
+    - Youtube Video Frame
+  -->
+  <section class="youtube-video">
+    <div class="video-frame-container">
+      <iframe src="https://www.youtube.com/embed/{{movies.video_id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  
+  </section>
+
+      <!-- #BANNER SECTION -->
+      <section class="banner">
+        <div class="banner-card">
+          
+            <div class="card-info-container">
+                <div class="card-content">
+                    <div class="card-info">
+                      <div class="genre">
+                        <ion-icon name="film"></ion-icon>
+                        <span>{{movies.category}}</span>
+                      </div>
+                      <div class="year">
+                        <ion-icon name="calendar"></ion-icon>
+                        <span>{{movies.year_of_prod}}</span>
+                      </div>
+                      <div class="duration">
+                        <ion-icon name="time"></ion-icon>
+                        <span>{{movies.duration}}</span>
+                      </div>
+                      <div class="quality">{{movies.language}}</div>
+                    </div>
+                    <h2 class="card-title">{{movies.title}}</h2>
+                    <h2>{{movies.status}}</h2>
+                    <p class="card-description">{{movies.description}} </p>
+                </div>
+            </div>
+        </div>
+    
+
+
+      
+        <section class="youtube-video">
+        </section>
+        {%if request.session.username %}
+        <!-- Comment Section -->
+          <h2>Leave a Comment</h2>
+          <form id="comment-form" method="POST" action="{%url 'add_comment' movies.idfilm%}">
+            {% csrf_token %}
+            <div class="form-group">
+              <textarea name="comment" id="comment" cols="30" rows="5" placeholder="Add your comment here"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+          <section class="comments-section">
+            <div class="commenttitleh2">Comments </div>
+            <div class="offer-list">
+
+              {% for comment in comments %}               
+                  <div class="offer">
+                  <p>Utilisateur : {{ comment.user_id}}</a></p>
+                  <p>date  :{{ comment.added_at|date:'F d, Y' }}</p>
+                      <p>Description de l'article : {{ comment.text }}</p>
+                  </div>
+              {% endfor %}
+          </div>
+          
+            
+          </section>
+        {%endif%}
+        <br>     
+        <div class="commenttitleh2">Recommanded Films </div>
+        <br>     
+
+        <div class="movies-grid">
+          
+          {% for post in recommended_films reversed %}
+          <div class="movie-card">
+           
+  
+            <div class="card-head">
+              <img src="{{post.image}}" alt="" class="card-img">
+  
+              <div class="card-overlay">
+  
+                <div class="bookmark">
+                 
+                  <a href="{%url 'add_fav' post.idfilm %}"><h5>FAV</h5></a>
+                </div>
+  
+                <div class="rating">
+                  <ion-icon name="star-outline"></ion-icon>
+                  <span>{{post.year_of_prod}}</span>
+                </div>
+  
+                <div class="play">
+                  <ion-icon name="play-circle-outline"></ion-icon>
+                </div>
+  
+              </div>
+            </div>
+  
+            <div class="card-body">
+             <a href="{% url 'movies' post.idfilm %}"> <h3 class="card-title">{{post.title}}</h3></a>
+  
+              <div class="card-info">
+                <span class="genre">{{post.category}}</span>
+                <span class="year">{{post.year_of_prod}}</span>
+                
+              </div>
+            </div>
+           
+          </div>
+          
+       
+  
+          {% endfor %}
+  
+  
+
+
+      </section>
+      
+      <!-- FOOTER SECTION -->
+      {%include "footer.html"%}
+
+      <!-- custom js link -->
+      <script src="./static/js/main.js"></script>
+
+      <!-- ionicon link -->
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      <script src="{% static 'js/main.js' %}"></script>
+      <style>
+        /* Comments Section */
+        .offer-list {
+    overflow: scroll;
+    height: 500px;
+}
+.offer {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.offer p {
+    margin: 5px 0;
+}
+
+.offer p:first-of-type {
+    font-weight: bold;
+}
+
+.offer-list {
+    overflow: scroll;
+    height: 500px;
+}
+        
+.commenttitleh2{
+    color:white;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: whitesmoke;
+    margin-bottom: 10px;
+}
+
+.comments-section {
+  margin: 40px 0;
+}
+
+.comments-section h2 {
+  font-size: 2em;
+  font-weight: bold;
+  color: whitesmoke; /* change to match your template's color scheme */
+  margin-bottom: 20px;
+}
+
+.comments-container {
+  overflow-y: scroll;
+  max-height: 300px; /* set the max-height as desired */
+}
+
+.comment-box {
+  display: flex;
+
+  padding: 10px;
+  align-items: flex-start;
+  background:; /* change to match your template's color scheme */
+  color:var(--rich-black-fogra-29); /* change to match your template's color scheme */
+  
+  margin-bottom: 10px;
+  border-bottom: 1px solid white; /* Add a line below each comment to separate them */
+}
+
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  color: aliceblue;
+}
+
+.username {
+  font-weight: bold;
+  color: white;
+}
+
+.date {
+  font-size: 0.8em;
+  color: white;
+}
+
+
+.comment-text{
+    font-size: 1.2em;
+    color:beige;
+    line-height: 1.5;
+}
+
+
+        /* Comment Section */
+#comments h2 {
+    color: white;
+}
+
+
+#comments {
+  margin: 20px 0;
+  color: white;
+}
+
+#comments h3 {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: white; /* change to match your template's color scheme */
+  margin-bottom: 10px;
+}
+
+
+
+
+
+.user-info h4 {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--rich-black-fogra-29); /* change to match your template's color scheme */
+  margin-bottom: 5px;
+
+}
+
+
+.user-info p {
+  font-size: 0.9em;
+  color: var(--oxford-blue); /* change to match your template's color scheme */
+}
+
+.comment-text p {
+  font-size: 1.2em;
+  color: var(--rich-black-fogra-29); /* change to match your template's color scheme */
+  line-height: 1.5;
+}
+
+#comment-form {
+  margin-top: 20px;
+}
+.card-image-container {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+}
+
+.card-image {
+    border-radius: 10px;
+}
+
+
+#comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.2em;
+  color: white; /* change to match your template's
+    color scheme */
+    border: none;
+  background:  var(--rich-black-fogra-29); /* change to match your template's color scheme */
+  border-radius: 5px;
+  resize: none;
+}
+
+
+#comment-form .btn {
+  background: var(--light-azure); /* change to match your template's color scheme */
+  color: var(--rich-black-fogra-29); /* change to match your template's color scheme */
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1.2em;
+  border: none;
+}
+
+
+
+.banner-image {
+    width: 30%;
+    /*Add the border radius you want */
+    border-radius: 10px;
+}
+
+.banner-info {
+    width: 70%;
+    /* Add any other styles you want for the information */
+}
+
+
+#comment-form .btn:hover {
+  background: var(--oxford-blue); /* change to match your template's color scheme */
+  cursor: pointer;
+}
+
+
+
+  </style>
+  <style> 
+   /* The container holding the video frame */
+.video-frame-container {
+    width: 140%; /* Make the frame take up the full width of its parent container */
+    max-width: 1150px; /* Or set a maximum width if desired */
+    margin: auto; /* Center the frame horizontally */
+    padding: 20px; /* Add some padding around the frame */
+    border-radius: 10px; /* Round the corners of the frame */
+    overflow: hidden; /* Hide any overflowing content */
+}
+
+/* The iframe element that contains the video */
+.video-frame-container iframe {
+    width: 100%; /* Make the frame take up the full width of its container */
+    height: 500px; /* Set the height of the frame */
+    border: none; /* Remove the default border */
+}
+iframe {
+  border-radius: 20px; /* adjust as needed */
+  width: 80%; /* adjust as needed */
+  height: auto;
+}
+
+  </style>
+    </body>
+</html>
+
+         
+
+    

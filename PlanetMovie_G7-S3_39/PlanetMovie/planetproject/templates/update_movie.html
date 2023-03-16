@@ -1,0 +1,91 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UPDATE FILM</title>
+    <link rel="stylesheet" type="text/css" href="{%static 'css2/style2.css'%}" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Quicksand&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="contact-box">
+        <div class="left"></div>
+        <div class="right">
+          <h2>UPDATE FILM</h2>
+          <form action="{%url 'updatefilm' film.idfilm%}" method="POST">
+            {% csrf_token %}
+            <input
+              type="text"
+              class="field"
+              placeholder="FILM NAME"
+              name="title"
+            />
+            <input
+              type="text"
+              class="field"
+              placeholder="URL Cover"
+              name="image"
+            />
+            <input
+              type="text"
+              class="field"
+              placeholder="Genre"
+              name="category"
+            />
+            <input
+              type="text"
+              class="field"
+              placeholder="Language"
+              name="language"
+            />
+
+            <input
+              type="text"
+              class="field"
+              placeholder="video_id"
+              name="video_id"
+            />
+            <input
+              type="text"
+              class="field"
+              placeholder="duration"
+              name="duration"
+            />
+            <input
+              type="number"
+              class="field"
+              placeholder="Year of prod"
+              name="year_of_prod"
+            />
+            <input
+              type="number"
+              class="field"
+              placeholder="Views_nb"
+              name="views_nb"
+            />
+            <input
+              type="text"
+              class="field"
+              placeholder="status"
+              name="status"
+            />
+            <input placeholder="description" class="field" name="description" />
+            <button class="btn" type="submit" id="submitButton">Save</button>
+            
+          </form>
+          <br>
+          <a href="/">  <button class="btn" >Home</button>
+          </form></a>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'js4/main.js' %}"></script>
+  </body>
+</html>

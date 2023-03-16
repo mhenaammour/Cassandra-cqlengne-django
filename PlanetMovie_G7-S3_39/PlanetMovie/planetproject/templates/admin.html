@@ -1,0 +1,214 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="static/css2/style.css" />
+  </head>
+
+  <body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="desktop-outline"></ion-icon>
+              </span>
+              <span class="title">Movies Planet</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/">
+              <span class="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span class="title">Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{% url 'blog' %}">
+              <span class="icon">
+                <ion-icon name="people-outline"></ion-icon>
+              </span>
+              <span class="title">Blog</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{% url 'movie4_csv' %}">
+              <span class="icon">
+                <ion-icon name="book-outline"></ion-icon>
+              </span>
+              <span class="title">CSV</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/">
+              <span class="icon">
+                <ion-icon name="man-outline"></ion-icon>
+              </span>
+              <span class="title">HOME</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div class="toggle">
+            <ion-icon name="menu-outline"></ion-icon>
+          </div>
+
+          <form action="">
+            <div class="search" name="q">
+              <label>
+                <input type="text" placeholder="Search here" name="q" />
+                <ion-icon name="point-outline"></ion-icon>
+              </label>
+            </div>
+          </form>
+
+          <div class="user"></div>
+        </div>
+
+        <!-- ======================= Cards ================== -->
+
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+        <canvas id="myChart"></canvas>
+
+        <div class="container">
+          <canvas id="filmCountChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+            var ctx = document.getElementById('filmCountChart').getContext('2d');
+            var chart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: {{ categories|safe }},
+                datasets: [{
+                  label: 'Number of Films',
+                  data: {{ counts|safe}},
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero: true
+                          }
+                      }]
+                  }
+              }
+          });
+        </script>
+
+        <!-- ================ Films List ================= -->
+        <div class="details">
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>FILMS</h2>
+              <a href="/" class="btn">View All</a>
+              <a href="addfilm" class="btn">Add Film</a>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <td>Number</td>
+                  <td>Name</td>
+                  <td>genre</td>
+                  <td>year</td>
+                  <td>status</td>
+                  <td>Delete/Modify</td>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for film in films %}
+                <tr>
+                  <p></p>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{film.title}}</td>
+                  <td>{{film.category}}</td>
+                  <td>{{film.year_of_prod}}</td>
+                  <td>{{film.status|truncatewords:13}}</td>
+                  <td>
+                    <!-- <a href="{% url 'deletefilm' film.pk %}" class="btn"
+                >Delete Film</a
+              >-->
+                    <a href="{% url 'deletefilm' film.idfilm %}">
+                      <button>
+                        <ion-icon
+                          name="close-circle-outline"
+                        ></ion-icon></button
+                    ></a>
+                    <a href="{% url 'updatef' film.idfilm %}">
+                      <button>
+                        <ion-icon name="open-circle-outline"></ion-icon></button
+                    ></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ================= LAST VIEWERS ================ -->
+          <div class="recentCustomers">
+            <div class="cardHeader">
+              <h2>Most Watched</h2>
+            </div>
+            <h3></h3>
+            <table>
+              {% for film in films %} {% if film.views_nb >= 100 %}
+              <tr>
+                <td>
+                  <h4>
+                    {{film.title}} <br />
+                    <h3 style="font-weight: bold">Views Nb</h3>
+                    <span>{{film.views_nb}}</span>
+                  </h4>
+                </td>
+              </tr>
+              {% endif %} {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="static/js4/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

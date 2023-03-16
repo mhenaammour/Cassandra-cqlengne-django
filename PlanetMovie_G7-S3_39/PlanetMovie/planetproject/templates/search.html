@@ -1,0 +1,218 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./static/images/icon.png" type="image/png">
+  <title>PlanetMovie</title>
+
+  <!--
+    - custom css 
+  -->
+  <link rel="stylesheet" href="./static/css/main.css">
+  <link rel="stylesheet" href="./static/css/media_query.css">
+
+  <!--
+    - google font 
+  -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
+</head>
+
+<body>
+
+
+
+
+  <!--
+    - main container
+  -->
+  <div class="container">
+
+    <!--
+      - #HEADER SECTION
+    -->
+
+    <header class="">
+      <div class="navbar">
+
+        <!--
+          - menu button for small screen
+        -->
+        <button class="navbar-menu-btn">
+          <span class="one"></span>
+          <span class="two"></span>
+          <span class="three"></span>
+        </button>
+
+        <a href="/" class="navbar-brand">
+          <div class="slay" style="font-size: x-large;"><h3 style="color: var(--light-azure);">PlanetMovie</h3></div>
+        </a>
+        <!--
+          - navbar navigation
+        -->
+
+        {%include "navbar.html"%}
+
+
+
+    <!--
+      - MAIN SECTION
+    -->
+    <main>
+
+      <!--
+        - #BANNER SECTION
+      -->
+      <section class="banner">
+        <div class="banner-card">
+
+          <img src="./static/images/movies/geoffrey-moffett-TFRezw7pQwI-unsplash.jpg" class="banner-img" alt="">
+
+          <div class="card-content">
+            <div class="card-info">
+
+              <div class="genre">
+                <ion-icon name="film"></ion-icon>
+                <span>All sorts of movies</span>
+              </div>
+
+              <div class="year">
+                <ion-icon name="calendar"></ion-icon>
+                <span>for all ages</span>
+              </div>
+
+              <div class="duration">
+                <ion-icon name="time"></ion-icon>
+                <span>Get Ready to spend some fine times!</span>
+              </div>
+
+              <div class="quality">Welcome</div>
+
+            </div>
+
+            <h3 class="card-title">Get Ready for an Immersive Exprience with PlanetMovies!</h3>
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!--
+        - #MOVIES SECTION
+      -->
+
+      <section class="movies">
+        
+        <!--
+          - filter bar
+        -->
+        {%include "filterbar.html"%}
+
+        <!--
+          - movies grid
+        -->
+        {%if posts%}
+          <div class="movies-grid">
+            
+              {% for post in posts reversed %}
+              <div class="movie-card">
+              
+
+                <div class="card-head">
+                  <img src="{{post.image}}" alt="" class="card-img">
+
+                  <div class="card-overlay">
+
+
+                    <div class="bookmark">
+                    
+                        <a href="{%url 'add_fav' post.idfilm %}"><h5>FAV</h5></a>
+                    </div>
+
+                    <div class="rating">
+                      <ion-icon name="star-outline"></ion-icon>
+                      <span>{{post.year_of_prod}}</span>
+                    </div>
+
+                    <div class="play">
+                      <ion-icon name="play-circle-outline"></ion-icon>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="card-body">
+                <a href="{% url 'movies' post.idfilm %}"> <h3 class="card-title">{{post.title}}</h3></a>
+
+                  <div class="card-info">
+                    <span class="genre">{{post.category}}</span>
+                    <span class="year">{{post.year_of_prod}}</span>
+                    
+                  </div>
+                </div>
+              
+              </div>
+              
+          
+
+              {% endfor %}
+          {%else%}
+          <h3 class="card-title">Aucun resultat !</h3></a>
+
+          {%endif%}
+
+          
+        <!--
+          - load more button
+
+        -->
+        <button id="load-more-btn">Load More</button>
+
+      </section>
+      
+  
+      
+
+
+
+    <!--
+      - FOOTER SECTION
+    -->
+   {%include "footer.html"%}
+  <!--
+    - custom js link
+  -->
+  <script src="./static/js/main.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    document.getElementById('load-more-btn').addEventListener('click', function() {
+      let page = document.querySelectorAll('.item').length;
+      $.ajax({
+        url: '/load-more',
+        data: {
+          'page': page
+        },
+        dataType: 'json',
+        success: function(data) {
+          // Append the new items to the page
+        }
+      });
+    });
+  </script>
+  
+
+</body>
+
+</html>

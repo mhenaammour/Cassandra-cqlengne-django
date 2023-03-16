@@ -1,0 +1,7 @@
+<p>voulez vous supprimer cette commande</p>
+
+<form action="{% url 'delete_blog' articl.pk %}" method="post">
+  {% csrf_token %}
+  <a class="btn btn-warning" href=" {% url 'blog' articl.pk %}"></a>
+  <input class="btn btn-danger" type="submit" name="Confirmer" />
+</form>

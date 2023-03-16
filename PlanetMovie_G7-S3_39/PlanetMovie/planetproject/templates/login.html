@@ -1,0 +1,65 @@
+{%load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./static/images/icon.png"
+      type="image/png"
+    />
+    <title>CineFlix</title>
+
+    <!--
+    - custom css 
+  -->
+    <link rel="stylesheet" href="./static/css/main2.css" />
+    <link rel="stylesheet" href="./static/css/main.css" />
+    <link rel="stylesheet" href="./static/css/media_query.css" />
+
+    <!--
+    - google font 
+  -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="smallcont">
+        <div class="sidebare">
+          <!-- <img src="./static/images/logo.png" alt="" />-->
+          <h1 class="welcom">CineFlix Home of movies</h1>
+        </div>
+        <div class="login">
+          <img src="./static/images/crime.jpg" alt="hello" class="avatar" />
+          <h1>Login Here</h1>
+          <form method="POST" action="{%url 'signin'%}">
+            {% csrf_token %}
+
+            <p>Username</p>
+            <input
+              type="text"
+              placeholder="Enter Username Or Email"
+              name="username"
+            />
+            <p>Password</p>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+            />
+            <input type="submit" value="Login" />
+            {%if error%}
+            <h1>{{error}}</h1>
+            {%endif%}
+            <a href="">Lost your password ?</a>
+            <a href="signup">Don't have an acount ?</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

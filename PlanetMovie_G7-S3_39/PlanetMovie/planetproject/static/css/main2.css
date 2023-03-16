@@ -1,0 +1,175 @@
+.smallcont{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    
+}
+.sidebare{
+    position: absolute;
+}
+.sidebare img{
+    width: 200%;
+    position: relative;
+    top: 200px;
+    left: 125px;
+}
+.sidebare h1{
+    position: relative;
+    top: 250px;
+    left: 150px;
+}
+.login, .signup{
+    width: 396px;
+    height: 420px;
+    margin-top: 50px;
+    background: hsla(218, 39%, 14%, 0.8);
+    color: #fff;
+    left: 60%;
+    top: 10%;
+    position: absolute;
+    
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.login p, .signup p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+
+}
+
+.login input, .signup input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.login input[type="text"], input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+
+}
+
+.login input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.login input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: #ffc107;
+    color:#000;
+
+}
+
+.login a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+.login a:hover 
+{
+    color: #ffc107;
+}
+
+
+
+/* sign up page */
+
+
+.signup{
+    width: 500px;
+    height: 100%;
+    margin-top: 0;
+    top: 0;
+    padding: 50px 30px;
+}
+.signup h4{
+    margin-bottom: 20px;
+}
+.cont{
+    display: grid;
+    grid-template-rows: repeat(21, auto);
+    grid-template-columns: repeat(22, auto);
+}
+
+.cont .one {
+    grid-column: 2/11;
+}
+.cont .two {
+    grid-column: 13/22;
+}
+.cont .three, .four, .five, .six, .seven, .nine, .cont a {
+    grid-column: 2/23;
+}
+.cont a 
+
+.signup input[type="password"], input[type="date"], input[type="text"]
+{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+
+}
+
+.signup input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.signup input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: #ffc107;
+    color:#000;
+
+}
+
+.signup a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+.signup a:hover 
+{
+    color: #ffc107;
+}

@@ -1,0 +1,82 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./static/images/icon.png"
+      type="image/png"
+    />
+    <title>CineFlix</title>
+
+    <!--
+    - custom css 
+  -->
+    <link rel="stylesheet" href="./static/css/main2.css" />
+    <link rel="stylesheet" href="./static/css/main.css" />
+    <link rel="stylesheet" href="./static/css/media_query.css" />
+
+    <!--
+    - google font 
+  -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="smallcont">
+        <div class="sidebare">
+          <!--          <img src="./static/images/logo.png" alt="" />
+-->
+          <h1 class="welcom">PlanetMovie Home of movies</h1>
+        </div>
+
+        <div class="signup">
+          <h1>Sign Up Here</h1>
+          <form method="POST" action="{%url 'signup'%}">
+            {% csrf_token %}
+            <div class="cont">
+              <p class="one">User name</p>
+              <input
+                class="one"
+                type="text"
+                placeholder="Enter username"
+                name="username"
+                id="username"
+              />
+              <p class="three">Email</p>
+              <input
+                class="three"
+                type="text"
+                placeholder="Enter phone number or Email"
+                name="email"
+                id="email"
+              />
+              <p class="four">Password</p>
+              <input
+                class="four"
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                id="password"
+              />
+
+              <input class="six" type="submit" value="Sign Up" />
+
+              <a href="signin">Already have an acount ?</a>
+              <br />
+              {%if error%}
+              <h5>
+                Le nom d'utilisateur que vous essayer d'introduire existe deja !
+              </h5>
+              {%endif%}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
